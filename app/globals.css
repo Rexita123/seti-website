@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+:root {
+  --color-jade: #2e9e6e;
+  --color-menta: #8ed1ae;
+  --color-azul: #2f80ed;
+  --color-tinta: #1b2420;
+  --color-lienzo: #f1f5f1;
+}
+
+@theme inline {
+  --color-jade: var(--color-jade);
+  --color-menta: var(--color-menta);
+  --color-azul: var(--color-azul);
+  --color-tinta: var(--color-tinta);
+  --color-lienzo: var(--color-lienzo);
+
+  --color-background: var(--color-lienzo);
+  --color-foreground: var(--color-tinta);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-karla);
+  --font-mono: var(--font-plex-mono);
+}
+
+body {
+  background: var(--color-lienzo);
+  color: var(--color-tinta);
+}
+
+/* Lenis smooth scroll — base CSS recomendada por la librería */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
