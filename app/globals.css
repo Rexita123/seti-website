@@ -46,6 +46,16 @@ html.lenis body {
   overflow: hidden;
 }
 
+/* El hero 3D se monta tras la primera interacción — que entre con un fundido. */
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

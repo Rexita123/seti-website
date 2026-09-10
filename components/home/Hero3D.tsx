@@ -1,8 +1,8 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { Float, MeshDistortMaterial } from "@react-three/drei";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 
 function Blob() {
   return (
@@ -22,11 +22,42 @@ function Blob() {
   );
 }
 
-export default function Hero3D() {
+/**
+ * Con `frameloop="demand"` el Canvas solo dibuja cuando algo llama a `invalidate()`.
+ * Este driver lo llama a ~30fps mientras `active` sea true, y deja de hacerlo
+ * cuando el hero sale de pantalla / la pestaña se oculta / la animación "reposa":
+ * ahí el hilo principal queda libre por completo.
+ */
+function FrameDriver({ active, fps = 30 }: { active: boolean; fps?: number }) {
+  const invalidate = useThree((s) => s.invalidate);
+
+  useEffect(() => {
+    if (!active) return;
+    let raf = 0;
+    let last = performance.now();
+    const interval = 1000 / fps;
+
+    const frame = (now: number) => {
+      raf = requestAnimationFrame(frame);
+      if (now - last >= interval) {
+        last = now;
+        invalidate();
+      }
+    };
+
+    raf = requestAnimationFrame(frame);
+    return () => cancelAnimationFrame(raf);
+  }, [active, fps, invalidate]);
+
+  return null;
+}
+
+export default function Hero3D({ active }: { active: boolean }) {
   return (
     <Canvas
+      frameloop="demand"
       camera={{ position: [0, 0, 5.5], fov: 40 }}
-      dpr={[1, 1.75]}
+      dpr={[1, 1.5]}
       gl={{ antialias: true, alpha: true }}
     >
       <ambientLight intensity={0.7} />
@@ -35,6 +66,7 @@ export default function Hero3D() {
       <Suspense fallback={null}>
         <Blob />
       </Suspense>
+      <FrameDriver active={active} fps={30} />
     </Canvas>
   );
 }

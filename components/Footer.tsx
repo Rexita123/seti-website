@@ -12,7 +12,7 @@ const CONTACT_EMAIL = "salvadorrexadelrazo@outlook.com";
 const CONTACT_PHONE_DISPLAY = "771 343 8109";
 const CONTACT_PHONE_TEL = "+527713438109";
 
-// Pon aquí el link real cuando exista la cuenta — mientras esté vacío, el ícono no se muestra.
+// URLs confirmadas por el fundador (2026-09-10). Si se deja `href` vacío, el ícono no se muestra.
 const SOCIAL_LINKS = [
   {
     name: "Facebook",
