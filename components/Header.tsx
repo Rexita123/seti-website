@@ -33,6 +33,9 @@ export default function Header() {
 
   const transparent = isHome && !scrolled && !open;
 
+  // La tarjeta digital (/tarjeta) se presenta sola, sin el header del sitio.
+  if (pathname === "/tarjeta") return null;
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${

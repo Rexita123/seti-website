@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Karla, IBM_Plex_Mono } from "next/font/google";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import ChromeFooter from "@/components/ChromeFooter";
 import SmoothScrollProvider from "@/components/motion/SmoothScrollProvider";
 import "./globals.css";
 
@@ -42,7 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SmoothScrollProvider>
           <Header />
           <main className="flex-1">{children}</main>
-          <Footer />
+          <ChromeFooter />
         </SmoothScrollProvider>
       </body>
     </html>
